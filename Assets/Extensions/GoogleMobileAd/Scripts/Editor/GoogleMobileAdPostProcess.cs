@@ -13,37 +13,50 @@ public class GoogleMobileAdPostProcess  {
 
 
 		#if UNITY_IPHONE && !CODE_DISABLED
-		string StoreKit = "StoreKit.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(StoreKit)) {
-			ISDSettings.Instance.frameworks.Add(StoreKit);
-		}
 
+
+		string StoreKit = "StoreKit.framework";
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(StoreKit)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = StoreKit;
+			ISDSettings.Instance.Frameworks.Add(F);
+		}
 
 		string CoreTelephony = "CoreTelephony.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(CoreTelephony)) {
-			ISDSettings.Instance.frameworks.Add(CoreTelephony);
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(CoreTelephony)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = CoreTelephony;
+			ISDSettings.Instance.Frameworks.Add(F);
+		}
+
+		string AdSupport = "AdSupport.framework";
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(AdSupport)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = AdSupport;
+			ISDSettings.Instance.Frameworks.Add(F);
 		}
 
 
-		string AdSupport = "AdSupport.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(AdSupport)) {
-			ISDSettings.Instance.frameworks.Add(AdSupport);
+		string MessageUI = "MessageUI.framework";
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(AdSupport)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = MessageUI;
+			ISDSettings.Instance.Frameworks.Add(F);
 		}
 	
 
-		string MessageUI = "MessageUI.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(MessageUI)) {
-			ISDSettings.Instance.frameworks.Add(MessageUI);
-		}
-
 		string EventKit = "EventKit.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(EventKit)) {
-			ISDSettings.Instance.frameworks.Add(EventKit);
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(AdSupport)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = EventKit;
+			ISDSettings.Instance.Frameworks.Add(F);
 		}
 
 		string EventKitUI = "EventKitUI.framework";
-		if(!ISDSettings.Instance.frameworks.Contains(EventKitUI)) {
-			ISDSettings.Instance.frameworks.Add(EventKitUI);
+		if(!ISDSettings.Instance.ContainsFreamworkWithName(EventKitUI)) {
+			ISD_Framework F =  new ISD_Framework();
+			F.Name = EventKitUI;
+			ISDSettings.Instance.Frameworks.Add(F);
 		}
 
 		/*
@@ -52,6 +65,9 @@ public class GoogleMobileAdPostProcess  {
 			ISDSettings.Instance.linkFlags.Add(linkerFlasg);
 		}
 		*/
+
+
+
 		#endif
 	}
 

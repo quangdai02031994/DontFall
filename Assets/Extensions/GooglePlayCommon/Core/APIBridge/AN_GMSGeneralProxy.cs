@@ -13,6 +13,26 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	// Play Service
 	//--------------------------------------
 
+	public static void initTagManager(string containerId, string binDataId) {
+		CallActivityFunction("initTagManager", containerId, binDataId);
+	}
+
+	public static void getValueFromContainer(string key) {
+		CallActivityFunction("getValueFromContainer", key);
+	}
+
+	public static void refreshContainer() {
+		CallActivityFunction("refreshContainer");
+	}
+
+	public static void pushValue(string key, string value) {
+		CallActivityFunction("pushValue", key, value);
+	}
+
+	public static void pushEvent(string tagEvent, string key, string value) {
+		CallActivityFunction("pushEvent", tagEvent, key, value);
+	}
+
 	public static void loadGoogleAccountNames() {
 		CallActivityFunction("loadGoogleAccountNames");
 	}
@@ -83,12 +103,10 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	public static void loadLeaderBoards() {
 		CallActivityFunction("loadLeaderBoards");
 	}
-	
-	
-	public static void UpdatePlayerScore(string leaderboardId, int span, int leaderboardCollection) {
-		CallActivityFunction("updatePlayerScore", leaderboardId, span.ToString(), leaderboardCollection.ToString());
+
+	public static void loadLeaderboardInfoLocal(string leaderboardId, int requestId){
+		CallActivityFunction("loadLeaderBoardsLocal", leaderboardId, requestId);
 	}
-	
 	
 	public static void loadPlayerCenteredScores(string leaderboardId, int span, int leaderboardCollection, int maxResults) {
 		CallActivityFunction("loadPlayerCenteredScores", leaderboardId, span.ToString(), leaderboardCollection.ToString(), maxResults.ToString());

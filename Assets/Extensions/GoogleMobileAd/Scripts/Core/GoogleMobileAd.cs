@@ -17,6 +17,7 @@ public class GoogleMobileAd  {
 
 	public static GoogleMobileAdInterface controller;
 	private static bool _IsInited = false ;
+	private static bool _IsInterstitialReady = false;
 
 
 	
@@ -256,6 +257,14 @@ public class GoogleMobileAd  {
 	}
 	
 	public static void ShowInterstitialAd() {
+		if(_IsInterstitialReady) {
+			_IsInterstitialReady = false;
+		} else {
+			Debug.LogWarning ("ShowInterstitialAd shoudl be called only what  Interstitial Ad is Ready ");
+			return;
+		}
+
+
 		if(!_IsInited) {
 			Debug.LogWarning ("ShowInterstitialAd shoudl be called only after Init function. Call ignored");
 			return;
@@ -302,24 +311,33 @@ public class GoogleMobileAd  {
 		}
 	}
 
+	public static bool IsInterstitialReady {
+		get {
+			return _IsInterstitialReady;
+		}
+	}
 
 	//--------------------------------------
 	// Actions Impl
 	//--------------------------------------
 
 	private static void OnInterstitialLoadedListner () {
+		_IsInterstitialReady = true;
 		OnInterstitialLoaded();
 	}
 
 	private static void OnInterstitialFailedLoadingListner () {
+		_IsInterstitialReady = false;
 		OnInterstitialFailedLoading();
 	}
 
 	private static void OnInterstitialOpenedListner () {
+		_IsInterstitialReady = false;
 		OnInterstitialOpened();
 	}
 
 	private static void OnInterstitialClosedListner () {
+		_IsInterstitialReady = false;
 		OnInterstitialClosed();
 	}
 

@@ -4,14 +4,13 @@ using System.Collections;
 public class AdmodController : MonoBehaviour {
 
     public static AdmodController Inst;
-
+    
     private GoogleMobileAdBanner banner;
 
 
     void Awake()
     {
         Inst = this;
-
         if (!GoogleMobileAd.IsInited)
         {
             GoogleMobileAd.Init();
@@ -20,7 +19,9 @@ public class AdmodController : MonoBehaviour {
     void Start()
     {
         banner = GoogleMobileAd.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
+        banner.ShowOnLoad = false;
     }
+
     public void ShowBanner()
     {
         if (banner.IsLoaded)
@@ -42,3 +43,4 @@ public class AdmodController : MonoBehaviour {
     }
 
 }
+

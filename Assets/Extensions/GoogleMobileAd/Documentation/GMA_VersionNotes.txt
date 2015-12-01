@@ -1,3 +1,20 @@
+7.1.1:
+Plugin postprocessing player fix
+
+7.1:
+Compatibility update
+
+7.0.1:
+Compatibility update
+
+7.0:
+Updated to work with the new Google Mobile AD SDK
+IsInterstitialReady property added. Read more: https://goo.gl/HQ8fxT
+
+6.9
+Ad Banner support Pause and Resume while application pause
+Compatibility update
+
 6.8.1
 Edior UI fixes
 Playmaker action fixes
