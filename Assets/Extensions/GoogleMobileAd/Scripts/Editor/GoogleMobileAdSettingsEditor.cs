@@ -166,7 +166,7 @@ public class GoogleMobileAdSettingsEditor : Editor {
 				GUI.color = c;
 				EditorGUILayout.Space();
 				EditorGUILayout.EndHorizontal();
-				Actions();
+				
 			} else {
 				EditorGUILayout.HelpBox("Google Mobile Ad Plugin v" + GoogleMobileAdSettings.VERSION_NUMBER + " is installed", MessageType.Info);
 

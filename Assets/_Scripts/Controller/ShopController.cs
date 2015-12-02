@@ -20,6 +20,7 @@ public class ShopController : MonoBehaviour {
     {
         countSwipe = 0;
         maxSwipe = Cube_Shop.childCount - 1;
+        SoundController.Inst.PlayGameBackGround();
     }
 
     void Update()
@@ -99,11 +100,21 @@ public class ShopController : MonoBehaviour {
                 break;
         }
         PlayerPrefs.SetString(Config.Ball, _choose);
-        LoadScene();
+        LoadPlayScene();
     }
 
-    public void LoadScene()
+    public void LoadPlayScene()
     {
         Application.LoadLevel(SceneName.Level1);
+    }
+
+    public void LoadIntroScene()
+    {
+        Application.LoadLevel(SceneName.Intro);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

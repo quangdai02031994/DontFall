@@ -20,8 +20,11 @@ public class GameController : MonoBehaviour {
     public Image panelPause;
     public Image panelRestart;
 
+    public Text txt_HighScore;
     public Text txt_Score;
+    public Text txt_ScoreGameOver;
     public Text txt_YourScore;
+
     public Button btn_Pause;
 
     public bool _isGamePlaying = false;
@@ -43,6 +46,7 @@ public class GameController : MonoBehaviour {
         
     }
 	void Start () {
+
         startCamera = Camera.position;
         rotationCamera = Camera.eulerAngles;
         OnRestartGame();
@@ -59,9 +63,18 @@ public class GameController : MonoBehaviour {
         if (Player.position.y < -1)
         {
             if (Camera.GetComponent<CameraLookAt>().enabled)
+            {
+                SoundController.Inst.PlayGameOver();
                 Camera.GetComponent<CameraLookAt>().enabled = false;
+            }
         }
-        
+
+        CheckEndPoint();
+
+    }
+
+    private void CheckEndPoint()
+    {
         if (Cube_Horizontal.childCount > 0)
         {
             Vector3 _standar = Cube_Horizontal.GetChild(0).localPosition;
@@ -136,7 +149,6 @@ public class GameController : MonoBehaviour {
                 _endCubeVerticalPosition = new Vector3(pos.x - 1.5f, pos.y, pos.z - 2.5f);
             }
         }
-
     }
 
     public void OnRestartGame()
@@ -158,23 +170,23 @@ public class GameController : MonoBehaviour {
         btn_Pause.gameObject.SetActive(false);
         txt_Score.gameObject.SetActive(false);
         Player.gameObject.SetActive(true);
+        SoundController.Inst.PlayGameBackGround();
     }
 
 
     public void OnGameOver()
     {
+        CheckHighScore();
         _isGamePlaying = false;
         _isGameAlive = false;
-        Time.timeScale = 0;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;
         Player.GetComponent<Rigidbody>().useGravity = false;
         Camera.GetComponent<CameraLookAt>().enabled = false;
-        txt_YourScore.text = Score.ToString();
+        txt_ScoreGameOver.text = Score.ToString();
         panelRestart.gameObject.SetActive(true);
         txt_Score.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(false);
-        Player.gameObject.SetActive(false);
         AdmodController.Inst.HideBanner();
     }
     public void OnPauseGame()
@@ -201,6 +213,7 @@ public class GameController : MonoBehaviour {
         btn_Pause.gameObject.SetActive(true);
         txt_Score.gameObject.SetActive(true);
         AdmodController.Inst.ShowBanner();
+        SoundController.Inst.StopGameBackGround();
     }
 
     public void QuitGame()
@@ -208,13 +221,34 @@ public class GameController : MonoBehaviour {
         Application.Quit();
     }
 
+    public void LoadIntroScene()
+    {
+        Application.LoadLevel(SceneName.Intro);
+    }
+
+
     public void AddScore()
     {
         Score++;
     }
 
-    public void LoadScene()
+    public void GoShop()
     {
         Application.LoadLevel(SceneName.Shop);
+    }
+
+    private void CheckHighScore()
+    {
+        if (PlayerPrefs.GetInt(Config.HighScore) <= Score)
+        {
+            PlayerPrefs.SetInt(Config.HighScore, Score);
+            txt_HighScore.text = "";
+            txt_YourScore.text = "New High Score !!!";
+        }
+        else
+        {
+            txt_HighScore.text = "Best " + PlayerPrefs.GetInt(Config.HighScore).ToString();
+            txt_YourScore.text = "Your Score";
+        }
     }
 }

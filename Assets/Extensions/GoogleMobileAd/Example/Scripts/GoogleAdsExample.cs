@@ -20,7 +20,7 @@ public class GoogleAdsExample : MonoBehaviour {
 	private GoogleMobileAdBanner banner1;
 	private GoogleMobileAdBanner banner2;
 
-
+	private bool IsInterstisialsAdReady = false;
 
 	//--------------------------------------
 	// INITIALIZE
@@ -45,7 +45,8 @@ public class GoogleAdsExample : MonoBehaviour {
 
 
 
-
+		GoogleMobileAd.OnInterstitialLoaded += OnInterstisialsLoaded;
+		GoogleMobileAd.OnInterstitialOpened += OnInterstisialsOpen;
 
 
 		//listening for InApp Event
@@ -93,9 +94,8 @@ public class GoogleAdsExample : MonoBehaviour {
 		}
 
 
-
 		StartX += 170;
-		GUI.enabled = GoogleMobileAd.IsInterstitialReady;
+		GUI.enabled = IsInterstisialsAdReady;
 		if(GUI.Button(new Rect(StartX, StartY, 150, 50), "Show Interstitial Ad")) {
 			GoogleMobileAd.ShowInterstitialAd ();
 		}
@@ -300,7 +300,13 @@ public class GoogleAdsExample : MonoBehaviour {
 	//  EVENTS
 	//--------------------------------------
 
+	private void OnInterstisialsLoaded() {
+		IsInterstisialsAdReady = true;
+	}
 
+	private void OnInterstisialsOpen() {
+		IsInterstisialsAdReady = false;
+	}
 
 	private void OnInAppRequest(string productId) {
 	

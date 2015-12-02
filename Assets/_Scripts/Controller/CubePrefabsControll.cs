@@ -70,6 +70,7 @@ public class CubePrefabsControll : MonoBehaviour {
 
                 if (hit.collider.tag == Tags.Horizontal)
                 {
+                    SoundController.Inst.PlayMoveDone();
                     transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
                     transform.gameObject.tag = Tags.Horizontal;
                     transform.gameObject.layer = 8;
@@ -121,6 +122,7 @@ public class CubePrefabsControll : MonoBehaviour {
 
                 if (hit.collider.tag == Tags.Vertical)
                 {
+                    SoundController.Inst.PlayMoveDone();
                     transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
                     transform.gameObject.tag = Tags.Vertical;
                     transform.gameObject.layer = 8;

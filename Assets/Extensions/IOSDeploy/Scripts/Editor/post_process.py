@@ -8,7 +8,6 @@ frameworks = argv[2].split(' ')
 libraries = argv[3].split(' ')
 cflags = argv[4].split(' ')
 ldflags = argv[5].split(' ')
-folders = argv[6].split(' ')
     
 print('Step 1: add system frameworks ')
     #if framework is optional, add `weak=True`
@@ -19,11 +18,7 @@ for frwrk in frameworks:
         project.remove_file(f)
     
     if len(frwrk) > 0:
-        fo = frwrk.split('|')
-        if int(fo[1]):
-            project.add_file('System/Library/Frameworks/' + fo[0], tree='SDKROOT', weak=True)
-        else:
-            project.add_file('System/Library/Frameworks/' + fo[0], tree='SDKROOT')
+        project.add_file('System/Library/Frameworks/' + frwrk, tree='SDKROOT')
 
 print('Step 2: add system libraries ')
 for lib in libraries:
@@ -32,11 +27,7 @@ for lib in libraries:
         project.remove_file(f)
     
     if len(lib) > 0:
-        lo = lib.split('|')
-        if int(lo[1]):
-            project.add_file('usr/lib/' + lo[0], tree='SDKROOT', weak=True)
-        else:
-            project.add_file('usr/lib/' + lo[0], tree='SDKROOT')
+        project.add_file('usr/lib/' + lib, tree='SDKROOT')
 
 print('Step 3: add CFLAGS ')
 for cf in cflags:
@@ -48,10 +39,8 @@ for ldf in ldflags:
     if len(ldf) > 0:
         project.add_other_ldflags(ldf)
 
-print('Step 5: add language folders')
-for langFolder in folders:
-    if len(langFolder) > 0:
-        project.add_folder(path + '/' + langFolder + '.lproj')
+print('Step 5: change build setting')
+	#project.add_other_buildsetting('GCC_ENABLE_OBJC_EXCEPTIONS', 'YES')
 
 print('Step 6: save our change to xcode project file')
 if project.modified:

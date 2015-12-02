@@ -4,6 +4,8 @@ using System.Collections;
 public static class Config
 {
     public const string Ball = "Ball";
+    public const string Volume = "on";
+    public const string HighScore = "HighScore";
 }
 
 
@@ -11,6 +13,7 @@ public static class SceneName
 {
     public const string Shop = "Shop";
     public const string Level1 = "Level1";
+    public const string Intro = "Intro";
 }
 
 
@@ -28,4 +31,11 @@ public static class BallName
     public const string Ball_Capsule = "Capsule";
     public const string Ball_Sphere = "Sphere";
     public const string Ball_Cylinder = "Cylinder";
+}
+
+
+public static class Volume
+{
+    public const string Mute = "off";
+    public const string NotMute = "on";
 }

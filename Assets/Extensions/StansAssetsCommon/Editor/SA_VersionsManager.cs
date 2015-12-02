@@ -7,9 +7,6 @@ using System.Collections;
 public static class SA_VersionsManager  {
 
 
-	public const string SUPPORT_EMAIL = "support@stansassets.com";
-
-
 	public const string VERSION_INFO_PATH = "Plugins/StansAssets/Versions/";
 
 	public const string AN_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "AN_VersionInfo.txt";
@@ -17,7 +14,7 @@ public static class SA_VersionsManager  {
 	public const string GMA_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "GMA_VersionInfo.txt";
 	public const string MSP_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "MSP_VersionInfo.txt";
 	public const string ISN_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "ISN_VersionInfo.txt";
-	public const string MNP_VERSION_INFO_PATH 	= VERSION_INFO_PATH + "MNP_VersionInfo.txt";
+
 
 	private const string UM_IOS_INSTALATION_MARK = PluginsInstalationUtil.IOS_DESTANATION_PATH + "UM_IOS_INSTALATION_MARK.txt";
 
@@ -29,7 +26,7 @@ public static class SA_VersionsManager  {
 	
 	public static bool Is_AN_Installed {
 		get { 
-			return FileStaticAPI.IsFileExists(AN_VERSION_INFO_PATH);
+			return FileStaticAPI.IsFileExists(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "androidnative.jar") && FileStaticAPI.IsFileExists(AN_VERSION_INFO_PATH);
 		}
 	}
 
@@ -89,7 +86,7 @@ public static class SA_VersionsManager  {
 	 
 	public static bool Is_UM_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(UM_VERSION_INFO_PATH);
+			return FileStaticAPI.IsFileExists(UM_VERSION_INFO_PATH) && FileStaticAPI.IsFileExists(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "androidnative.jar") && FileStaticAPI.IsFileExists(UM_IOS_INSTALATION_MARK);
 		} 
 	}
 	
@@ -139,32 +136,8 @@ public static class SA_VersionsManager  {
 			return GetStringVersionId(GMA_VERSION_INFO_PATH);
 		}
 	}
-	//--------------------------------------
-	// Mobile Native Pop Up 
-	//--------------------------------------
-	public static bool Is_MNP_Installed {
-		get {
-			return FileStaticAPI.IsFileExists(MNP_VERSION_INFO_PATH);
-		} 
-	}
-	
-	public static int MNP_Version {
-		get {
-			return GetVersionCode(MNP_VERSION_INFO_PATH);
-		} 
-	}
-	
-	public static int MNP_MagorVersion {
-		get {
-			return GetMagorVersionCode(MNP_VERSION_INFO_PATH);
-		} 
-	}
-	
-	public static string MNP_StringVersionId {
-		get {
-			return GetStringVersionId(MNP_VERSION_INFO_PATH);
-		}
-	}
+
+
 
 	//--------------------------------------
 	// IOS Native   
@@ -263,11 +236,7 @@ public static class SA_VersionsManager  {
 			if(Is_MSP_Installed) {
 				allPluginsInstalled = allPluginsInstalled + " (Mobile Social)" + "\n";
 			}
-
-			if(Is_MNP_Installed) {
-				allPluginsInstalled = allPluginsInstalled + " (Mobile Native Pop Up)" + "\n";
-			}
-
+			
 			return allPluginsInstalled;
 		}
 	}

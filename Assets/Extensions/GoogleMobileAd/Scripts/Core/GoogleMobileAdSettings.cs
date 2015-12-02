@@ -10,8 +10,8 @@ using UnityEditor;
 
 public class GoogleMobileAdSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "7.1.1";
-	public const string PLAY_SERVICE_VERSION = "8115000";
+	public const string VERSION_NUMBER = "6.8.1";
+	public const string PLAY_SERVICE_VERSION = "7571000";
 
 	public string IOS_InterstisialsUnitId = "";
 	public string IOS_BannersUnitId = "";
@@ -56,7 +56,6 @@ public class GoogleMobileAdSettings : ScriptableObject {
 					instance = CreateInstance<GoogleMobileAdSettings>();
 					#if UNITY_EDITOR
 					string properPath = Path.Combine(Application.dataPath, ISNSettingsPath);
-					FileStaticAPI.CreateFolder(ISNSettingsPath);
 					if (!Directory.Exists(properPath)) {
 						AssetDatabase.CreateFolder("Extensions/", "GoogleMobileAd");
 						AssetDatabase.CreateFolder("Extensions/GoogleMobileAd", "Resources");
