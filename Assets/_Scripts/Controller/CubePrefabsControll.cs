@@ -11,6 +11,9 @@ public class CubePrefabsControll : MonoBehaviour {
     private Ray ray;
     private RaycastHit hit;
 
+    private bool gamePlaying;
+    private bool canControl;
+
     private Vector3 fingerStart;
     private Vector3 fingerEnd;
 
@@ -23,8 +26,10 @@ public class CubePrefabsControll : MonoBehaviour {
 	void Update ()
     {
         #region Điều khiển chuyển động của các cube
+        gamePlaying = GameController.Instance._isGamePlaying;
+        canControl = GameController.Instance._canControl;
 
-        if (GameController.Instance._isGamePlaying && GameController.Instance._control_Horizontal && _isHorizontal && Time.timeScale == 1)
+        if (gamePlaying && canControl && GameController.Instance._control_Horizontal && _isHorizontal && Time.timeScale == 1)
         {
             
             if (Input.touchCount > 0)

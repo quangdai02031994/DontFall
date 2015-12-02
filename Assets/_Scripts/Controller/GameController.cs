@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour {
     public bool _isGamePlaying = false;
     public bool _control_Horizontal = true;
     public bool _isGameAlive = true;
+    public bool _canControl = true;
     
     public Vector3 _endCubeHorizontalPosition;
     public Vector3 _endCubeVerticalPosition;
@@ -66,6 +67,7 @@ public class GameController : MonoBehaviour {
             {
                 SoundController.Inst.PlayGameOver();
                 Camera.GetComponent<CameraLookAt>().enabled = false;
+                _canControl = false;
             }
         }
 
@@ -156,6 +158,7 @@ public class GameController : MonoBehaviour {
         _isGamePlaying = false;
         _isGameAlive = true;
         _control_Horizontal = true;
+        _canControl = true;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;
         Player.position = new Vector3(1, 0, 0);
