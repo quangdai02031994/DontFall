@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class ShopController : MonoBehaviour {
     
-    public Transform Cube_Shop;
+    public Transform Item;
 
     private Vector3 fingerStart;
     private Vector3 fingerEnd;
@@ -19,7 +19,7 @@ public class ShopController : MonoBehaviour {
     void Start()
     {
         countSwipe = 0;
-        maxSwipe = Cube_Shop.childCount - 1;
+        maxSwipe = Item.childCount - 1;
         SoundController.Inst.PlayGameBackGround();
     }
 
@@ -35,23 +35,23 @@ public class ShopController : MonoBehaviour {
                 {
                     fingerEnd = touch.position;
                     fingerStart = touch.position;
-                    currentPosition = Cube_Shop.position;
+                    currentPosition = Item.position;
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
                     Vector3 touchDeltaPosition = touch.deltaPosition;
-                    Cube_Shop.position = new Vector3(Cube_Shop.position.x + touchDeltaPosition.x * Time.deltaTime, Cube_Shop.position.y, Cube_Shop.position.z);
+                    Item.position = new Vector3(Item.position.x + touchDeltaPosition.x * Time.deltaTime, Item.position.y, Item.position.z);
                     fingerEnd = touch.position;
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
-                    if (Cube_Shop.position.x > 0)
+                    if (Item.position.x > 0)
                     {
-                        Cube_Shop.DOMoveX(0, 0.3f);
+                        Item.DOMoveX(0, 0.3f);
                     }
-                    else if (Cube_Shop.position.x < -maxSwipe * 5)
+                    else if (Item.position.x < -maxSwipe * 5)
                     {
-                        Cube_Shop.DOMoveX(-maxSwipe * 5, 0.3f);
+                        Item.DOMoveX(-maxSwipe * 5, 0.3f);
                     }
                     else
                     {
@@ -61,14 +61,14 @@ public class ShopController : MonoBehaviour {
                             if (fingerEnd.x < fingerStart.x)
                             {
                                 //do some thing
-                                Cube_Shop.DOMoveX(currentPosition.x - 5, 0.3f);
+                                Item.DOMoveX(currentPosition.x - 5, 0.3f);
                                 countSwipe--;
                             }
                             //swipe right
                             else if (fingerEnd.x > fingerStart.x)
                             {
                                 // do some thing
-                                Cube_Shop.DOMoveX(currentPosition.x + 5, 0.3f);
+                                Item.DOMoveX(currentPosition.x + 5, 0.3f);
                                 countSwipe++;
                             }
                             currentPosition = Vector3.zero;
@@ -82,25 +82,27 @@ public class ShopController : MonoBehaviour {
 
     }
 
-    public void ChooseBall()
+    public void ChoosePlayer()
     {
-        switch (countSwipe)
-        {
-            case 0:
-                _choose = BallName.Ball_Cube;
-                break;
-            case -1:
-                _choose = BallName.Ball_Capsule;
-                break;
-            case -2:
-                _choose = BallName.Ball_Sphere;
-                break;
-            case -3:
-                _choose = BallName.Ball_Cylinder;
-                break;
-        }
-        PlayerPrefs.SetString(Config.Ball, _choose);
-        LoadPlayScene();
+        ////switch (countSwipe)
+        ////{
+        ////    case 0:
+        ////        _choose = BallName.Ball_Cube;
+        ////        break;
+        ////    case -1:
+        ////        _choose = BallName.Ball_Capsule;
+        ////        break;
+        ////    case -2:
+        ////        _choose = BallName.Ball_Sphere;
+        ////        break;
+        ////    case -3:
+        ////        _choose = BallName.Ball_Cylinder;
+        ////        break;
+        ////}
+        ////PlayerPrefs.SetString(Config.Ball, _choose);
+        //LoadPlayScene();
+
+        
     }
 
     public void LoadPlayScene()

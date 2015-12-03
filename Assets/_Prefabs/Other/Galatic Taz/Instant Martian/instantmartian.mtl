@@ -1,0 +1,11 @@
+# Material file for instantmartian.obj
+
+newmtl 08___Default
+	Ns 0
+	d 1
+	illum 2
+	Kd 0.564706 0.564706 0.564706
+	Ks 0.0 0.0 0.0
+	Ka 0.564706 0.564706 0.564706
+	map_Kd 08___Default.png
+

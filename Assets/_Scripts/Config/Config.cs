@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Config
 {
-    public const string Ball = "Ball";
+    public const string Player = "BabyDuck";
     public const string Volume = "on";
     public const string HighScore = "HighScore";
 }
@@ -25,12 +25,19 @@ public static class Tags
     public const string Diamond = "diamond";
 }
 
-public static class BallName
+public static class PlayerNames
 {
-    public const string Ball_Cube = "Cube";
-    public const string Ball_Capsule = "Capsule";
-    public const string Ball_Sphere = "Sphere";
-    public const string Ball_Cylinder = "Cylinder";
+    public const string BabyDuck = "BabyDuck";
+    public const string Cow = "Cow";
+    public const string Doge = "Doge";
+    public const string Dragon = "Dragon";
+    public const string Ed = "Ed";
+    public const string Instantmartian = "Instantmartian";
+    public const string Koopa = "Koopa";
+    public const string Patrick = "Patrick";
+    public const string PiggyBank = "PiggyBank";
+    public const string Spearguy = "Spearguy";
+    public const string SpongeBob = "SpongeBob";
 }
 
 
