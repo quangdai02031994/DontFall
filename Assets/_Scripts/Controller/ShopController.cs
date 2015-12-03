@@ -25,7 +25,6 @@ public class ShopController : MonoBehaviour {
 
     void Update()
     {
-
         #region Bắt sự kiện vuốt màn hình sang trái hoặc sang phải để di chuyển các item trong shop
         if (Input.touchCount > 0)
         {
@@ -77,35 +76,46 @@ public class ShopController : MonoBehaviour {
                 }
             }
         }
+        
         #endregion
-
 
     }
 
     public void ChoosePlayer()
     {
-        ////switch (countSwipe)
-        ////{
-        ////    case 0:
-        ////        _choose = BallName.Ball_Cube;
-        ////        break;
-        ////    case -1:
-        ////        _choose = BallName.Ball_Capsule;
-        ////        break;
-        ////    case -2:
-        ////        _choose = BallName.Ball_Sphere;
-        ////        break;
-        ////    case -3:
-        ////        _choose = BallName.Ball_Cylinder;
-        ////        break;
-        ////}
-        ////PlayerPrefs.SetString(Config.Ball, _choose);
-        //LoadPlayScene();
-
-        
+        switch (countSwipe)
+        {
+            case 0:
+                _choose = PlayerNames.BabyDuck;
+                break;
+            case -1:
+                _choose = PlayerNames.Chespin;
+                break;
+            case -2:
+                _choose = PlayerNames.Chicken;
+                break;
+            case -3:
+                _choose = PlayerNames.Cow;
+                break;
+            case -4:
+                _choose = PlayerNames.Patrick;
+                break;
+            case -5:
+                _choose = PlayerNames.Penguin;
+                break;
+            case -6:
+                _choose = PlayerNames.SpongeBob;
+                break;
+            default:
+                _choose = PlayerNames.BabyDuck;
+                break;
+        }
+        PlayerPrefs.SetString(Config.Player, _choose);
+        Debug.Log(_choose);
+        LoadPlayScene();
     }
 
-    public void LoadPlayScene()
+    private void LoadPlayScene()
     {
         Application.LoadLevel(SceneName.Level1);
     }

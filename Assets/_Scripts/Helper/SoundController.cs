@@ -10,6 +10,7 @@ public class SoundController : MonoBehaviour {
     public AudioClip _gameOver;
     public AudioClip _moveDone;
     public AudioClip _backGround;
+    public AudioClip _coin;
 
     public bool _isMute;
 
@@ -56,6 +57,14 @@ public class SoundController : MonoBehaviour {
         if (!_isMute)
         {
             _audioSource.PlayOneShot(_moveDone);
+        }
+    }
+
+    public void PlayCoin()
+    {
+        if (!_isMute)
+        {
+            _audioSource.PlayOneShot(_coin);
         }
     }
 

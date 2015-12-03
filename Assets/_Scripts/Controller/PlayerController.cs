@@ -6,48 +6,47 @@ using DG.Tweening;
 public class PlayerController : MonoBehaviour {
 
 
-    public GameObject _badyDuck;
+    public GameObject _badyduck;
+    public GameObject _chespin;
+    public GameObject _chicken;
     public GameObject _cow;
-    public GameObject _doge;
-    public GameObject _dragon;
-    public GameObject _ed;
-    public GameObject _instantmartian;
-    public GameObject _koopa;
     public GameObject _patrick;
-    public GameObject _piggyBank;
-    public GameObject _spearGuy;
+    public GameObject _penguin;
     public GameObject _spongeBob;
-
-
     private float _speedMove = 5;
     private float _rayDistance = 1;
 
     private Transform player;
-
-
 	void Start () 
     {
-        //string _ball = PlayerPrefs.GetString(Config.Player);
-        //switch (_ball)
-        //{
-        //    case PlayerNames.Cow:
-        //        GeneratorObject(_cow);
-        //        break;
-        //    case PlayerNames.BabyDuck:
-        //        GeneratorObject(_doge);
-        //        break;
-        //    case PlayerNames.Doge:
-        //        GeneratorObject(_badyDuck);
-        //        break;
-        //    case PlayerNames.Dragon:
-        //        GeneratorObject(_dragon);
-        //        break;
-        //    default:
-        //        GeneratorObject(_badyDuck);
-        //        break;
-        //}
-
-        GeneratorObject(_ed);
+        string _playerObject = PlayerPrefs.GetString(Config.Player);
+        switch (_playerObject)
+        {
+            case PlayerNames.BabyDuck:
+                GeneratorObject(_badyduck);
+                break;
+            case PlayerNames.Chespin:
+                GeneratorObject(_chespin);
+                break;
+            case PlayerNames.Chicken:
+                GeneratorObject(_chicken);
+                break;
+            case PlayerNames.Cow:
+                GeneratorObject(_cow);
+                break;
+            case PlayerNames.Patrick:
+                GeneratorObject(_patrick);
+                break;
+            case PlayerNames.Penguin:
+                GeneratorObject(_penguin);
+                break;
+            case PlayerNames.SpongeBob:
+                GeneratorObject(_spongeBob);
+                break;
+            default:
+                GeneratorObject(_badyduck);
+                break;
+        }
 	}
 	
 	void Update () 
@@ -103,6 +102,7 @@ public class PlayerController : MonoBehaviour {
         {
             GameController.Instance.AddScore();
             other.gameObject.SetActive(false);
+            SoundController.Inst.PlayCoin();
         }
     }
 
