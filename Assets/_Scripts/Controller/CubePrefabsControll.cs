@@ -143,7 +143,6 @@ public class CubePrefabsControll : MonoBehaviour {
     public void Reset()
     {
         transform.gameObject.layer = 0;
-        //transform.gameObject.tag = "Untagged";
         transform.gameObject.tag = Tags.Untagged;
         transform.GetComponentInChildren<MeshRenderer>().material = current_material;
     }

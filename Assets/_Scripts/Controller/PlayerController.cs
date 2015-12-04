@@ -60,13 +60,13 @@ public class PlayerController : MonoBehaviour {
             if (hit.collider.tag == Tags.Horizontal)
             {
                 transform.DOMoveZ(hit.collider.transform.position.z, 0.1f).From();
-                player.DORotate(Vector3.zero, 0.3f).From();
+                player.DORotate(Vector3.zero, 1).From();
                 GameController.Instance._control_Horizontal = true;
             }
             else if (hit.collider.tag == Tags.Vertical)
             {
                 transform.DOMoveX(hit.collider.transform.position.x, 0.1f).From();
-                player.DORotate(new Vector3(0, 90, 0), 0.3f).From();
+                player.DORotate(new Vector3(0, 90, 0), 1).From();
                 GameController.Instance._control_Horizontal = false;
             }
         }
@@ -100,9 +100,9 @@ public class PlayerController : MonoBehaviour {
     {
         if (other.gameObject.tag == Tags.Diamond)
         {
+            SoundController.Inst.PlayCoin();
             GameController.Instance.AddScore();
             other.gameObject.SetActive(false);
-            SoundController.Inst.PlayCoin();
         }
     }
 

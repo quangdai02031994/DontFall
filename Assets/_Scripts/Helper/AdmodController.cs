@@ -14,7 +14,7 @@ public class AdmodController : MonoBehaviour {
             GoogleMobileAd.Init();
         }
         banner = GoogleMobileAd.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
-        banner.ShowOnLoad = false;
+        //banner.ShowOnLoad = false;
     }
     
     public void ShowBanner()
