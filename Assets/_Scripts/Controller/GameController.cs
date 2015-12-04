@@ -61,7 +61,7 @@ public class GameController : MonoBehaviour {
         {
             OnGameOver();
         }
-        if (Player.position.y < -0.5f)
+        if (Player.position.y < 0)
         {
             _canControl = false;
         }
