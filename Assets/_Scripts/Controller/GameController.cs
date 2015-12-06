@@ -61,14 +61,13 @@ public class GameController : MonoBehaviour {
         {
             OnGameOver();
         }
+
         if (Player.position.y < 0)
         {
             _canControl = false;
+
         }
-        else
-        {
-            _canControl = true;
-        }
+        
         if (Player.position.y < -1)
         {
             if (Camera.GetComponent<CameraLookAt>().enabled)
