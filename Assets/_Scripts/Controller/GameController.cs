@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour {
     public Vector3 _endCubeVerticalPosition;
 
 
-    private int Score = 0;
+    private int _score = 0;
 
     private Vector3 startCamera;
     private Vector3 rotationCamera;
@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 	
 	void Update () {
 
-        txt_Score.text = Score.ToString();
+        txt_Score.text = _score.ToString();
 
         if (Player.position.y < -5)
         {
@@ -74,6 +74,8 @@ public class GameController : MonoBehaviour {
             if (Camera.GetComponent<CameraLookAt>().enabled)
             {
                 SoundController.Inst.PlayGameOver();
+                CheckHighScore();
+                AddCoin();
                 Camera.GetComponent<CameraLookAt>().enabled = false;
             }
         }
@@ -174,7 +176,7 @@ public class GameController : MonoBehaviour {
         Player.eulerAngles = Vector3.zero;
         Player.GetComponent<Rigidbody>().useGravity = false;
         Camera.GetComponent<CameraLookAt>().enabled = true;
-        Score = 0;
+        _score = 0;
         panelRestart.gameObject.SetActive(false);
         panelHome.gameObject.SetActive(true);
         btn_Pause.gameObject.SetActive(false);
@@ -186,14 +188,13 @@ public class GameController : MonoBehaviour {
 
     public void OnGameOver()
     {
-        CheckHighScore();
         _isGamePlaying = false;
         _isGameAlive = false;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;
         Player.GetComponent<Rigidbody>().useGravity = false;
         Camera.GetComponent<CameraLookAt>().enabled = false;
-        txt_ScoreGameOver.text = Score.ToString();
+        txt_ScoreGameOver.text = _score.ToString();
         panelRestart.gameObject.SetActive(true);
         txt_Score.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(false);
@@ -239,7 +240,7 @@ public class GameController : MonoBehaviour {
 
     public void AddScore()
     {
-        Score++;
+        _score++;
     }
 
     public void GoShop()
@@ -249,9 +250,9 @@ public class GameController : MonoBehaviour {
 
     private void CheckHighScore()
     {
-        if (PlayerPrefs.GetInt(Config.HighScore) <= Score)
+        if (PlayerPrefs.GetInt(Config.HighScore) <= _score && _score!= 0)
         {
-            PlayerPrefs.SetInt(Config.HighScore, Score);
+            PlayerPrefs.SetInt(Config.HighScore, _score);
             txt_HighScore.text = "";
             txt_YourScore.text = "New High Score !!!";
         }
@@ -260,5 +261,11 @@ public class GameController : MonoBehaviour {
             txt_HighScore.text = "Best " + PlayerPrefs.GetInt(Config.HighScore).ToString();
             txt_YourScore.text = "Your Score";
         }
+    }
+
+    public void AddCoin()
+    {
+        int coin = _score + PlayerPrefs.GetInt(Config.Coin);
+        PlayerPrefs.SetInt(Config.Coin, coin);
     }
 }

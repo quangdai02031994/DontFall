@@ -74,7 +74,7 @@ public class IntroControl : MonoBehaviour {
 
     void LateUpdate()
     {
-        kimdai.transform.localEulerAngles = new Vector3(0, 0, t * timeToRotate * 10);
+        kimdai.transform.localEulerAngles = new Vector3(0, 0, t * timeToRotate * 12);
         kimngan.transform.localEulerAngles = new Vector3(0, 0, t * timeToRotate);
     }
     public void QuitGame()

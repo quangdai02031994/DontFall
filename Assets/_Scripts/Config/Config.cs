@@ -6,6 +6,7 @@ public static class Config
     public const string Player = "SpongeBob";
     public const string Volume = "on";
     public const string HighScore = "HighScore";
+    public const string Coin = "Coin";
 }
 
 
@@ -41,4 +42,21 @@ public static class Volume
 {
     public const string Mute = "off";
     public const string NotMute = "on";
+}
+
+
+public static class ItemActive
+{
+    public const string BabyDuck = "acBabyDuck";
+    public const string Chespin = "acChespin";
+    public const string Chicken = "acChicken";
+    public const string Cow = "acCow";
+    public const string Patrick = "acPatrick";
+    public const string Penguin = "acPenguin";
+    public const string SpongeBob = "acStrongeBob";
+}
+
+public static class State
+{
+    public const string Active = "active";
 }
