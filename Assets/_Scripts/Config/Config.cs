@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class Config
 {
-    public const string Player = "SpongeBob";
+    public const string Player = "BabyDuck";
     public const string Volume = "on";
     public const string HighScore = "HighScore";
     public const string Coin = "Coin";

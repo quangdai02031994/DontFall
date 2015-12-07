@@ -39,6 +39,7 @@ public class IntroControl : MonoBehaviour {
             sound.GetComponent<Button>().image.overrideSprite = _notMute;
         }
         SoundController.Inst.PlayGameBackGround();
+        AdmodController.Inst.HideBanner();
 	}
 
 	
@@ -85,7 +86,6 @@ public class IntroControl : MonoBehaviour {
     {
         Title.color = Color.black;
         Application.LoadLevel(SceneName.Level1);
-        //StartCoroutine(LoadScene(SceneName.Level1));
     }
 
 
@@ -93,7 +93,6 @@ public class IntroControl : MonoBehaviour {
     {
         Title.color = Color.black;
         Application.LoadLevel(SceneName.Shop);
-        //StartCoroutine(LoadScene(SceneName.Shop));
     }
 
 

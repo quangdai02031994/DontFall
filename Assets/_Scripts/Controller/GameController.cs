@@ -29,8 +29,8 @@ public class GameController : MonoBehaviour {
 
     public bool _isGamePlaying = false;
     public bool _control_Horizontal = true;
-    public bool _isGameAlive = true;
-    public bool _canControl = true;
+    public bool _isGameAlive = false;
+    public bool _movePlayer = false;
     
     public Vector3 _endCubeHorizontalPosition;
     public Vector3 _endCubeVerticalPosition;
@@ -44,13 +44,32 @@ public class GameController : MonoBehaviour {
     void Awake()
     {
         Instance = this;
-        
     }
 	void Start () {
 
         startCamera = Camera.position;
         rotationCamera = Camera.eulerAngles;
-        OnRestartGame();
+        //OnRestartGame();
+        _isGamePlaying = false;
+        _isGameAlive = true;
+        _control_Horizontal = true;
+        _movePlayer = false;
+        _endCubeHorizontalPosition = Vector3.zero;
+        _endCubeVerticalPosition = Vector3.zero;
+        Player.position = new Vector3(1, 0, 0);
+        Camera.position = startCamera;
+        Camera.eulerAngles = rotationCamera;
+        Player.eulerAngles = Vector3.zero;
+        Player.GetComponent<Rigidbody>().useGravity = false;
+        Camera.GetComponent<CameraLookAt>().enabled = true;
+        _score = 0;
+        panelRestart.gameObject.SetActive(false);
+        panelHome.gameObject.SetActive(true);
+        btn_Pause.gameObject.SetActive(false);
+        txt_Score.gameObject.SetActive(false);
+        Player.gameObject.SetActive(true);
+        SoundController.Inst.PlayGameBackGround();
+        AdmodController.Inst.ShowBanner();
 	}
 	
 	void Update () {
@@ -62,12 +81,6 @@ public class GameController : MonoBehaviour {
             OnGameOver();
         }
 
-        if (Player.position.y < 0)
-        {
-            _canControl = false;
-
-        }
-        
         if (Player.position.y < -1)
         {
             if (Camera.GetComponent<CameraLookAt>().enabled)
@@ -80,6 +93,11 @@ public class GameController : MonoBehaviour {
         }
 
         CheckEndPoint();
+
+        if (Input.GetKey(KeyCode.Home))
+        {
+            OnPauseGame();
+        }
 
     }
 
@@ -164,9 +182,9 @@ public class GameController : MonoBehaviour {
     public void OnRestartGame()
     {
         _isGamePlaying = false;
+        _movePlayer = false;
         _isGameAlive = true;
         _control_Horizontal = true;
-        _canControl = true;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;
         Player.position = new Vector3(1, 0, 0);
@@ -182,12 +200,15 @@ public class GameController : MonoBehaviour {
         txt_Score.gameObject.SetActive(false);
         Player.gameObject.SetActive(true);
         SoundController.Inst.PlayGameBackGround();
+        AdmodController.Inst.ShowFullScreen();
+        AdmodController.Inst.ShowBanner();
     }
 
 
     public void OnGameOver()
     {
         _isGamePlaying = false;
+        //_movePlayer = false;
         _isGameAlive = false;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;
@@ -197,13 +218,14 @@ public class GameController : MonoBehaviour {
         panelRestart.gameObject.SetActive(true);
         txt_Score.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(false);
-        AdmodController.Inst.HideBanner();
+        if (AdmodController.Inst.banner.IsOnScreen)
+            AdmodController.Inst.HideBanner();
     }
     public void OnPauseGame()
     {
-        if (_isGamePlaying)
+        if (_movePlayer)
         {
-            _isGamePlaying = false;
+            _movePlayer = false;
             Time.timeScale = 0;
             panelPause.gameObject.SetActive(true);
             btn_Pause.gameObject.SetActive(false);
@@ -215,6 +237,7 @@ public class GameController : MonoBehaviour {
         Time.timeScale = 1;
         _isGamePlaying = true;
         _isGameAlive = true;
+        _movePlayer = true;
         Player.GetComponent<Rigidbody>().useGravity = true;
         Camera.GetComponent<CameraLookAt>().enabled = true;
         panelHome.gameObject.SetActive(false);
@@ -222,7 +245,6 @@ public class GameController : MonoBehaviour {
         panelRestart.gameObject.SetActive(false);
         btn_Pause.gameObject.SetActive(true);
         txt_Score.gameObject.SetActive(true);
-        AdmodController.Inst.ShowBanner();
         SoundController.Inst.StopGameBackGround();
     }
 

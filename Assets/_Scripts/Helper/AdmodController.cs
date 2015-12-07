@@ -5,7 +5,7 @@ public class AdmodController : MonoBehaviour {
 
     public static AdmodController Inst;
 
-    private GoogleMobileAdBanner banner;
+    public GoogleMobileAdBanner banner;
 
     void Awake()
     {
@@ -16,6 +16,10 @@ public class AdmodController : MonoBehaviour {
             GoogleMobileAd.Init();
         }
         banner = GoogleMobileAd.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
+        banner.ShowOnLoad = false;
+        DontDestroyOnLoad(transform.gameObject);
+        LoadFullScreen();
+        GoogleMobileAd.OnInterstitialClosed += OnInterstitialClosed;
     }
 
     public void ShowBanner()
@@ -28,16 +32,9 @@ public class AdmodController : MonoBehaviour {
 
     public void HideBanner()
     {
-        if (banner.IsLoaded)
-        {
             banner.Hide();
-        }
     }
-    void OnDisable()
-    {
-        HideBanner();
-    }
-
+    
     public void LoadFullScreen()
     {
         GoogleMobileAd.LoadInterstitialAd();
@@ -48,7 +45,10 @@ public class AdmodController : MonoBehaviour {
         GoogleMobileAd.ShowInterstitialAd();
     }
 
-
+    void OnInterstitialClosed()
+    {
+        LoadFullScreen();
+    }
 
 }
 

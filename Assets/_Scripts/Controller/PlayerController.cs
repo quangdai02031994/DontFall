@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour {
     public GameObject _patrick;
     public GameObject _penguin;
     public GameObject _spongeBob;
-    private float _speedMove = 5;
-    private float _rayDistance = 1;
+
+    public float _speedMove = 5;
+    public float _rayDistance = 1;
 
     private Transform player;
 	void Start () 
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         switch (_playerObject)
         {
             case PlayerNames.BabyDuck:
-                GeneratorObject(_badyduck);
+                GeneratorObject(_chespin);
                 break;
             case PlayerNames.Chespin:
                 GeneratorObject(_chespin);
@@ -69,8 +70,14 @@ public class PlayerController : MonoBehaviour {
                 player.DORotate(new Vector3(0, 90, 0), 1).From();
                 GameController.Instance._control_Horizontal = false;
             }
+
         }
-        if (GameController.Instance._isGamePlaying)
+        else
+        {
+            GameController.Instance._isGamePlaying = false;
+        }
+        
+        if (GameController.Instance._movePlayer)
         {
             if (GameController.Instance._control_Horizontal)
             {

@@ -36,6 +36,7 @@ public class ShopController : MonoBehaviour {
         _currentItem = 0;
         _countItems = Item.childCount - 1;
         SoundController.Inst.PlayGameBackGround();
+        AdmodController.Inst.HideBanner();
     }
 
 

@@ -12,7 +12,7 @@ public class CubePrefabsControll : MonoBehaviour {
     private RaycastHit hit;
 
     private bool gamePlaying;
-    private bool canControl;
+    //private bool canControl;
 
     private Vector3 fingerStart;
     private Vector3 fingerEnd;
@@ -27,28 +27,29 @@ public class CubePrefabsControll : MonoBehaviour {
     {
         #region Điều khiển chuyển động của các cube
         gamePlaying = GameController.Instance._isGamePlaying;
-        canControl = GameController.Instance._canControl;
-
-        if (gamePlaying && canControl && GameController.Instance._control_Horizontal && _isHorizontal && Time.timeScale == 1)
+        //canControl = GameController.Instance._canControl;
+        if (gamePlaying)
         {
-            
-            if (Input.touchCount > 0)
+            if (GameController.Instance._control_Horizontal && _isHorizontal && Time.timeScale == 1)
             {
-                foreach (Touch touch in Input.touches)
+
+                if (Input.touchCount > 0)
                 {
-                    if (touch.phase == TouchPhase.Began)
+                    foreach (Touch touch in Input.touches)
                     {
-                        fingerStart = touch.position;
-                        fingerEnd = touch.position;
-                    }
-                    else if(touch.phase==TouchPhase.Moved)
-                    {
-                        fingerEnd = touch.position;
-                    }
-                    else if (touch.phase == TouchPhase.Ended)
-                    {
-                        if (Mathf.Abs(fingerStart.x - fingerEnd.x) < Mathf.Abs(fingerStart.y - fingerEnd.y))
+                        if (touch.phase == TouchPhase.Began)
                         {
+                            fingerStart = touch.position;
+                            fingerEnd = touch.position;
+                        }
+                        else if (touch.phase == TouchPhase.Moved)
+                        {
+                            fingerEnd = touch.position;
+                        }
+                        else if (touch.phase == TouchPhase.Ended)
+                        {
+                            if (Mathf.Abs(fingerStart.x - fingerEnd.x) < Mathf.Abs(fingerStart.y - fingerEnd.y))
+                            {
                                 //Upward Swipe
                                 if ((fingerEnd.y - fingerStart.y) > 0)
                                 {
@@ -59,79 +60,78 @@ public class CubePrefabsControll : MonoBehaviour {
                                 {
                                     transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z - 1);
                                 }
+                            }
+
+                            fingerStart = Vector3.zero;
+                            fingerEnd = Vector3.zero;
                         }
+                    }
+                }
 
-                        fingerStart = Vector3.zero;
-                        fingerEnd = Vector3.zero;
+                ray = new Ray(transform.localPosition - Vector3.left, Vector3.left * _rayDistance);
+                Debug.DrawRay(ray.origin, ray.direction * _rayDistance, Color.red);
+
+                if (Physics.Raycast(ray, out hit, _rayDistance))
+                {
+
+                    if (hit.collider.tag == Tags.Horizontal)
+                    {
+                        SoundController.Inst.PlayMoveDone();
+                        transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
+                        transform.gameObject.tag = Tags.Horizontal;
+                        transform.gameObject.layer = 8;
+                        this.gameObject.GetComponent<CubePrefabsControll>().enabled = false;
                     }
                 }
             }
-
-            ray = new Ray(transform.localPosition - Vector3.left, Vector3.left * _rayDistance);
-            Debug.DrawRay(ray.origin, ray.direction * _rayDistance, Color.red);
-
-            if (Physics.Raycast(ray, out hit, _rayDistance))
+            else if (GameController.Instance._control_Horizontal == false && _isHorizontal == false && Time.timeScale == 1)
             {
 
-                if (hit.collider.tag == Tags.Horizontal)
+                if (Input.touchCount > 0)
                 {
-                    SoundController.Inst.PlayMoveDone();
-                    transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
-                    transform.gameObject.tag = Tags.Horizontal;
-                    transform.gameObject.layer = 8;
-                    this.gameObject.GetComponent<CubePrefabsControll>().enabled = false;
-                }
-            }
-        }
-        else if (GameController.Instance._isGamePlaying && GameController.Instance._control_Horizontal == false && _isHorizontal == false && Time.timeScale == 1)
-        {
-            
-            if (Input.touchCount > 0)
-            {
-               
-                foreach (Touch touch in Input.touches)
-                {
-                    if (touch.phase == TouchPhase.Began)
+
+                    foreach (Touch touch in Input.touches)
                     {
-                        fingerStart = touch.position;
-                        fingerEnd = touch.position;
-                    }
-                    else if (touch.phase == TouchPhase.Ended)
-                    {
-                        fingerEnd = touch.position;
-                        if (Mathf.Abs(fingerStart.x - fingerEnd.x) < Mathf.Abs(fingerStart.y - fingerEnd.y))
+                        if (touch.phase == TouchPhase.Began)
                         {
-
-                            //Upward Swipe
-                            if ((fingerEnd.y - fingerStart.y) > 0)
-                            {
-                                transform.localPosition = new Vector3(transform.localPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
-                            }
-                            //Downward Swipe
-                            else if ((fingerEnd.y - fingerStart.y) < 0)
-                            {
-                                transform.localPosition = new Vector3(transform.localPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
-                            }
+                            fingerStart = touch.position;
+                            fingerEnd = touch.position;
                         }
-                        fingerStart = Vector3.zero;
-                        fingerEnd = Vector3.zero;
+                        else if (touch.phase == TouchPhase.Ended)
+                        {
+                            fingerEnd = touch.position;
+                            if (Mathf.Abs(fingerStart.x - fingerEnd.x) < Mathf.Abs(fingerStart.y - fingerEnd.y))
+                            {
+
+                                //Upward Swipe
+                                if ((fingerEnd.y - fingerStart.y) > 0)
+                                {
+                                    transform.localPosition = new Vector3(transform.localPosition.x - 1, transform.localPosition.y, transform.localPosition.z);
+                                }
+                                //Downward Swipe
+                                else if ((fingerEnd.y - fingerStart.y) < 0)
+                                {
+                                    transform.localPosition = new Vector3(transform.localPosition.x + 1, transform.localPosition.y, transform.localPosition.z);
+                                }
+                            }
+                            fingerStart = Vector3.zero;
+                            fingerEnd = Vector3.zero;
+                        }
                     }
                 }
-            }
 
-            ray = new Ray(transform.localPosition - Vector3.forward, Vector3.forward * 2);
-            Debug.DrawRay(ray.origin, ray.direction * 2, Color.red);
-
-            if (Physics.Raycast(ray, out hit, _rayDistance))
-            {
-
-                if (hit.collider.tag == Tags.Vertical)
+                ray = new Ray(transform.localPosition - Vector3.forward, Vector3.forward * 2);
+                Debug.DrawRay(ray.origin, ray.direction * 2, Color.red);
+                if (Physics.Raycast(ray, out hit, _rayDistance))
                 {
-                    SoundController.Inst.PlayMoveDone();
-                    transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
-                    transform.gameObject.tag = Tags.Vertical;
-                    transform.gameObject.layer = 8;
-                    this.gameObject.GetComponent<CubePrefabsControll>().enabled = false;
+                    if (hit.collider.tag == Tags.Vertical)
+                    {
+                        SoundController.Inst.PlayMoveDone();
+                        transform.GetComponentInChildren<MeshRenderer>().material = cube_Material;
+                        transform.gameObject.tag = Tags.Vertical;
+                        transform.gameObject.layer = 8;
+                        this.gameObject.GetComponent<CubePrefabsControll>().enabled = false;
+                    }
                 }
             }
         }

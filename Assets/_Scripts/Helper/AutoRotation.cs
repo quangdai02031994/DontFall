@@ -13,7 +13,7 @@ public class AutoRotation : MonoBehaviour {
         Time.timeScale = 1;
     }
 
-    void Update()
+    void LateUpdate()
     {
         transform.Rotate(_xSpeed * Time.deltaTime, _ySpeed * Time.deltaTime, _zSpeed * Time.deltaTime);
     }
