@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
         switch (_playerObject)
         {
             case PlayerNames.BabyDuck:
-                GeneratorObject(_chespin);
+                GeneratorObject(_badyduck);
                 break;
             case PlayerNames.Chespin:
                 GeneratorObject(_chespin);
