@@ -49,7 +49,6 @@ public class GameController : MonoBehaviour {
 
         startCamera = Camera.position;
         rotationCamera = Camera.eulerAngles;
-        //OnRestartGame();
         _isGamePlaying = false;
         _isGameAlive = true;
         _control_Horizontal = true;
