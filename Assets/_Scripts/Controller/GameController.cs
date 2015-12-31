@@ -92,12 +92,7 @@ public class GameController : MonoBehaviour {
         }
 
         CheckEndPoint();
-
-        if (Input.GetKey(KeyCode.Home))
-        {
-            OnPauseGame();
-        }
-
+      
     }
 
     private void CheckEndPoint()
