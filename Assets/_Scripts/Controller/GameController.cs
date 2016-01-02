@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour {
     public Vector3 _endCubeVerticalPosition;
 
 
+    public float _speedMove;
+
     private int _score = 0;
 
     private Vector3 startCamera;
@@ -62,6 +64,7 @@ public class GameController : MonoBehaviour {
         Player.GetComponent<Rigidbody>().useGravity = false;
         Camera.GetComponent<CameraLookAt>().enabled = true;
         _score = 0;
+        _speedMove = 6;
         panelRestart.gameObject.SetActive(false);
         panelHome.gameObject.SetActive(true);
         btn_Pause.gameObject.SetActive(false);
@@ -92,6 +95,11 @@ public class GameController : MonoBehaviour {
         }
 
         CheckEndPoint();
+
+        if (_movePlayer)
+        {
+            _speedMove += Time.deltaTime * 0.1f;
+        }
       
     }
 
@@ -188,6 +196,7 @@ public class GameController : MonoBehaviour {
         Player.GetComponent<Rigidbody>().useGravity = false;
         Camera.GetComponent<CameraLookAt>().enabled = true;
         _score = 0;
+        _speedMove = 6;
         panelRestart.gameObject.SetActive(false);
         panelHome.gameObject.SetActive(true);
         btn_Pause.gameObject.SetActive(false);
@@ -202,7 +211,6 @@ public class GameController : MonoBehaviour {
     public void OnGameOver()
     {
         _isGamePlaying = false;
-        //_movePlayer = false;
         _isGameAlive = false;
         _endCubeHorizontalPosition = Vector3.zero;
         _endCubeVerticalPosition = Vector3.zero;

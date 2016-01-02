@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     public float _rayDistance = 1;
 
     private Transform player;
+    private Ray ray;
+    private RaycastHit hit;
 	void Start () 
     {
         string _playerObject = PlayerPrefs.GetString(Config.Player);
@@ -52,10 +54,11 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update () 
     {
-        Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * _rayDistance);
-        Debug.DrawRay(ray.origin, Vector3.down * _rayDistance, Color.red);
 
-        RaycastHit hit;
+        _speedMove = GameController.Instance._speedMove;
+
+        ray = new Ray(transform.position + Vector3.up, Vector3.down * _rayDistance);
+        Debug.DrawRay(ray.origin, Vector3.down * _rayDistance, Color.red);
         if (Physics.Raycast(ray, out hit, _rayDistance))
         {
             if (hit.collider.tag == Tags.Horizontal)
@@ -76,7 +79,7 @@ public class PlayerController : MonoBehaviour {
         {
             GameController.Instance._isGamePlaying = false;
         }
-        
+
         if (GameController.Instance._movePlayer)
         {
             if (GameController.Instance._control_Horizontal)
